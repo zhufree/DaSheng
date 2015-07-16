@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="grid-sizer"></div>
+{% for photo in photos %}
+<div class="grid-item">
+  <a href="photo/{{photo.id}}/">
+    <img src="{{photo.url}}">
+  </a>
+  <p>{{photo.title}}</p>
+  <p>{% for tag in photo.tags.all %} <a href='/t/{{tag.id}}/'>{{tag.name}}</a> {% endfor %}</p>
+</div>
+{% endfor %}
+{% endblock %}
