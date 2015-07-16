@@ -5,9 +5,9 @@ from gallery.views import *
 import settings
 from django.conf.urls.static import static
 urlpatterns = patterns('',
-    url(r'^$',index,name='首页'),
-    url(r'^post/$',post,name='发布'),
-    url(r'^t/(?P<id>\d+)/$',show_by_tag,name='标签'),
+    url(r'^$',index,name='index_page'),
+    url(r'^post/$',post,name='post_page'),
+    url(r'^t/(?P<id>\d+)/$',show_by_tag,name='tag_page'),
     #url(r'^movie/$',,name='电影海报'),
     #url(r'^wallpaper/$',,name='壁纸'),
     #url(r'^fans/$',,name='粉丝创作'),
