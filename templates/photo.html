@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{photo.title}}{% endblock %}
+{% block content %}
+<div class="jumbotron" align="center">
+  <h3>{{photo.title}}</h3>
+  <img src="{{photo.url}}" >
+</div>
+<div class="grid-sizer"></div>
+
+{% endblock %}
