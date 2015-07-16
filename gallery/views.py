@@ -6,7 +6,7 @@ from gallery.models import *
 from django.template import RequestContext 
 # Create your views here.
 def index(request):
-    photos=Photo.objects.all()
+    photos=Photo.objects.all().order_by('-id')
     return render_to_response('index.html',RequestContext(request,{'photos':photos}))
 
 @csrf_exempt
