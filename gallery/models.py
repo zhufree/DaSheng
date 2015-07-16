@@ -4,10 +4,10 @@ from django.contrib import admin
 
 # Create your models here.
 class Tag(models.Model):
-	name=models.CharField(max_length=20,null=False,unique=True,default="")
-	#ename=models.CharField(max_length=20,null=False,unique=True,default="")
-	def __unicode__(self):
-		return self.name
+    name=models.CharField(max_length=20,null=False,unique=True,default="")
+    #ename=models.CharField(max_length=20,null=False,unique=True,default="")
+    def __unicode__(self):
+        return self.name
 
 class Photo(models.Model):
     title=models.CharField(max_length=20,null=False)

@@ -30,5 +30,5 @@ def post(request):
         return render_to_response('post.html',RequestContext(request,{'tags':tags}))
 
 def show_by_tag(request,id):
-	tag=Tag.objects.get(pk=id)
-	return render_to_response('tag.html',RequestContext(request,{'tag':tag}))
+    tag=Tag.objects.get(pk=id)
+    return render_to_response('tag.html',RequestContext(request,{'tag':tag}))
