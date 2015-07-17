@@ -6,12 +6,16 @@ import settings
 from django.conf.urls.static import static
 urlpatterns = patterns('',
     url(r'^$',index,name='首页'),
+    #v0.2
     url(r'^post/$',post,name='发布页'),
     url(r'^t/(?P<id>\d+)/$',show_by_tag,name='标签页'),
     url(r'^p/(?P<id>\d+)/$',show_photo,name='图片页'),
+    #v0.3
     url(r'^accounts/register/',register_,name='注册页'),
     url(r'^accounts/login/',login_,name='登陆页'),
     url(r'^accounts/logout/',logout_,name='退出账号'),
+    #v0.3.5
+    url(r'^msg/',message,name='留言板页'),
     #url(r'^movie/$',,name='电影海报'),
     #url(r'^wallpaper/$',,name='壁纸'),
     #url(r'^fans/$',,name='粉丝创作'),

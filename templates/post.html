@@ -22,7 +22,7 @@
 </form>
 <ul class="list-group">
 {% for tag in tags %}
-<li class="list-group-item"><span class="badge">{{tag.}}</span>{{tag.name}}</li>
+<a href="/t/{{tag.id}}/"><li class="list-group-item"><span class="badge">{{tag.count}}</span>{{tag.name}}</li></a>
 {% endfor %}
 </ul>
 {% endblock %}
