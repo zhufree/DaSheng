@@ -11,9 +11,22 @@ from django.contrib.auth.models import AnonymousUser
 # Create your views here.
 
 #v0.1
+@csrf_exempt
 def index(request):
-    photos=Photo.objects.all().order_by('-id')
-    return render_to_response('index.html',RequestContext(request,{'photos':photos}))
+    if request.method=='POST' and request.user.is_superuser:
+        choice_type=request.POST.get('choice_type')
+        photo_id=request.POST.get('photo_id')
+        if choice_type=='delete':
+            photo_to_del=Photo.objects.get(id=photo_id)
+            photo_to_del.delete()
+        elif choice_type=='hide':
+            photo_to_hide=Photo.objects.get(id=photo_id)
+            photo_to_hide.is_show=False
+            photo_to_hide.save()
+        return HttpResponseRedirect('/')
+    else:
+        photos=Photo.objects.filter(is_show=True).order_by('-id')
+        return render_to_response('index.html',RequestContext(request,{'photos':photos}))
 
 #v0.2
 @csrf_exempt
@@ -44,12 +57,25 @@ def post(request):
 
 def show_by_tag(request,id):
     tag=Tag.objects.get(pk=id)
-
-    return render_to_response('tag.html',RequestContext(request,{'tag':tag}))
-
+    photos=tag.has_photos.all().filter(is_show=True).order_by('-id')
+    return render_to_response('tag.html',RequestContext(request,{'tag':tag,'photos':photos}))
+    
+#v0.2,0.4.0
 def show_photo(request,id):
     photo=Photo.objects.get(pk=id)
-    return render_to_response('photo.html',RequestContext(request,{'photo':photo}))
+    if request.method=='POST':
+        content=request.POST.get('content')
+        new_comment=Comment.objects.create(
+            content=content,
+            author=request.user,
+            photo=photo
+            )
+        new_comment.save()
+        photo.photo_comments.add(new_comment)
+        photo.save()
+        return HttpResponseRedirect('/p/%s' %id)
+    else:
+        return render_to_response('photo.html',RequestContext(request,{'photo':photo}))
 
 #v0.3.0
 @csrf_protect
@@ -102,7 +128,7 @@ def message(request):
         except Exception, e:
             new_message=Message.objects.create(
             content=content
-            )
+            )#如果用户未登录，匿名用户将会报错，于是不用将使用匿名的
             new_message.save()
             return HttpResponseRedirect('/msg/')
         else:

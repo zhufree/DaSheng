@@ -5,7 +5,7 @@
   <h1 align="center">{{tag.name}}</h1>
 </div>
 <div class="grid-sizer"></div>
-{% for photo in tag.has_photos.all %}
+{% for photo in photos %}
 <div class="grid-item">
   <a href="p/{{photo.id}}/">
     <img src="{{photo.url}}">
