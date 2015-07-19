@@ -33,6 +33,8 @@ class Comment(models.Model):
     author=models.ForeignKey(User,related_name='user_comments')
     time=models.DateTimeField(auto_now_add=True)
     photo=models.ForeignKey(Photo,related_name='photo_comments')
+    def __unicode__(self):
+        return u'%s'%(self.content)
 
 admin.site.register(Photo)
 admin.site.register(Tag)

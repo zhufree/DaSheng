@@ -3,9 +3,9 @@
 {% block content %}
 <div class="jumbotron">
   <h2>这里是大圣同人画廊~</h2>
-  <p>本站图片来自微博豆瓣堆糖等网站，对于知道作者的图片已打上作者tag，如果有作者的作品没有打上标签请在留言板直接留言说明，谢谢。</p>
-  <p>建立这个网站的目的是给喜欢大圣归来同人的亲们一个交流的平台，所有作品尊重作者版权，不以盈利为目的，如果作者声明不允许转载将立刻删除。</p>
-  <p>现在刚刚加上用户系统，留言可以不需登录，不过评论照片需要登录哒，后续功能之后再加，感谢支持！</p>
+  <p>本站图片来自微博豆瓣堆糖等网站，所有作品已添加作者标签，点击标签可以看到该作者的所有作品。</p>
+  <p>建立这个网站的目的是给喜欢大圣归来同人的亲们一个交流的平台，所有作品尊重作者版权，不以盈利为目的，不允许二次转载，如果作者声明不允许转载将立刻删除。</p>
+  <p>v0.4.0更新：增加评论照片功能，需要登录。</p>
 </div>
 <div class="grid-sizer"></div>
 {% for photo in photos %}
@@ -15,6 +15,15 @@
   </a>
   <p>{{photo.title}}</p>
   <p>{% for tag in photo.tags.all %} <a href='/t/{{tag.id}}/' target="_blank">{{tag.name}}</a> {% endfor %}</p>
+  {% for cmt in photo.photo_comments.all %}
+    <div class="list-group">
+    <div class="list-group-item">
+      <h4 class="list-group-item-head">{{cmt.content}}</h4>
+      <p class="list-group-item-text" align="right">——{{cmt.author}}</p>
+      <p class="list-group-item-text" align="right">at {{cmt.time}}</p>
+    </div>
+    </div>
+  {% endfor %}
   {% if user.is_superuser %}
   <form class="form container" method="POST" action=".">{% csrf_token %}
 	<div class="form-group col-md-2">

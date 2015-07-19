@@ -8,21 +8,17 @@
 </head>
 {% block style %}
 <style> 
-    *{
-      -webkit-box-sizing: border-box;
-         -moz-box-sizing: border-box;
-              box-sizing: border-box;
-    }
     /* force scrollbar */
-    html { overflow-y: scroll; }
+    /*html { overflow-y: scroll; }*/
     body {
         font-family: sans-serif;
     }
     /* ---- isotope ---- */
     .grid {
         padding: 0; 
-        min-height: 450px; 
+       /* min-height: 450px; */
         margin: 0 auto; 
+        overflow:hidden;
     }
     /* clear fix */
     .grid:after {
@@ -50,7 +46,6 @@
       display: block;
       max-width: 100%;
       margin-bottom: 5px; 
-    display: block;
     }
 </style>
 {% endblock %}
