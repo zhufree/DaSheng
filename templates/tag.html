@@ -2,7 +2,11 @@
 {% block title %}{{tag.name}}{% endblock %}
 {% block content %}
 <div class="jumbotron">
+{% if tag.is_author %}
+  <h1 align="center"><a href="{{tag.author_link}}">{{tag.name}}</a></h1>
+{% else %}
   <h1 align="center">{{tag.name}}</h1>
+{% endif %}
 </div>
 <div class="grid-sizer"></div>
 {% for photo in photos %}

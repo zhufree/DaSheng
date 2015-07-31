@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'DaSheng.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve'),
     url(r'^admin/', include(admin.site.urls)),
 )
 

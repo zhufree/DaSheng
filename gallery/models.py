@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 class Tag(models.Model):
     name=models.CharField(max_length=20,null=False,unique=True,default="")
     count=models.IntegerField(default=0)
+    is_author=models.BooleanField(default=False)
+    author_link=models.URLField(default='')
     #ename=models.CharField(max_length=20,null=False,unique=True,default="")
     def __unicode__(self):
         return self.name
