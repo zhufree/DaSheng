@@ -1,5 +1,48 @@
 {% extends "base.html" %}
 {% block title %}首页{% endblock %}
+{% block style %}
+<style> 
+    /* force scrollbar */
+    /*html { overflow-y: scroll; }*/
+    body {
+        font-family: sans-serif;
+    }
+    /* ---- isotope ---- */
+    .grid {
+        padding: 0; 
+       /* min-height: 450px; */
+        margin: 0 auto; 
+        overflow:hidden;
+    }
+    /* clear fix */
+    .grid:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+    /* ---- .grid-item ---- */
+
+    .grid-sizer,
+    .grid-item {
+      width: 30%;
+    }
+
+    .grid-item {
+      float: left; 
+      margin: 20px; 
+      padding: 10px; 
+      border-width: 1px; 
+      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
+    }
+
+    .grid-item img {
+      display: block;
+      max-width: 100%;
+      margin-bottom: 5px; 
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="jumbotron">
   <h2>这里是大圣同人画廊~</h2>
@@ -44,4 +87,30 @@
   {% endif %}
 </div>
 {% endfor %}
+{% endblock %}
+{% block script %}
+<script>
+var url=window.location.href;//获取当前页面链接
+var cuts=url.split('/');//分隔，获取页码
+if(cuts.length<5){
+    	var cur_page_num=1;
+}else{
+    	var cur_page_num=parseInt(cuts[3]);
+}
+ $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();//滚动条滚动的距离
+        var scrollHeight = $(document).height();//整个html页面高度
+        var windowHeight = $(this).height();//可视页面的高度
+        if (scrollTop + windowHeight == scrollHeight) {
+            var nexturl=cuts[0]+'//'+cuts[1]+cuts[2]+'/'+String(cur_page_num+1)+'/';
+            cur_page_num+=1;
+            //alert(cur_page_num);
+            var newnode=document.createElement("div"); 
+            newnode.setAttribute("class", "container-fluid grid"); 
+            newnode.setAttribute("id","new"+String(cur_page_num));
+            document.body.appendChild(newnode);
+            $('#new'+String(cur_page_num)).load(nexturl+' .grid-item');
+        }
+    });
+</script> 
 {% endblock %}

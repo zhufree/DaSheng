@@ -12,7 +12,7 @@ from django.contrib.auth.models import AnonymousUser
 
 #v0.1
 @csrf_exempt
-def index(request):
+def index(request,page=0):
     if request.method=='POST' and request.user.is_superuser:
         choice_type=request.POST.get('choice_type')
         photo_id=request.POST.get('photo_id')
@@ -25,7 +25,7 @@ def index(request):
             photo_to_hide.save()
         return HttpResponseRedirect('/')
     else:
-        photos=Photo.objects.filter(is_show=True).order_by('-id')
+        photos=list(Photo.objects.filter(is_show=True).order_by('-id'))[int(page)*5:(int(page)+1)*5]
         return render_to_response('index.html',RequestContext(request,{'photos':photos}))
 
 #v0.2
@@ -137,3 +137,4 @@ def message(request):
     else:
         msgs=Message.objects.all().order_by('-time')
         return render_to_response('message.html',RequestContext(request,{'msgs':msgs}))
+

@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     #v0.3.5
     url(r'^msg/',message,name='留言板页'),
     #v0.4.5
+    url(r'^(?P<page>\d+)/$',index,name='分页'),
     #url(r'^t/movie/$',,name='电影海报'),
     #url(r'^t/wallpaper/$',,name='壁纸'),
     #url(r'^t/fans/$',,name='粉丝创作'),
