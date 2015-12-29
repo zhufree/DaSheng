@@ -20,7 +20,7 @@
 		<input type="submit" class="btn btn-lg btn-primary" value="发布"/>
 	</div>
 </form>
-<ul class="list-group">
+<ul class="list-group col-md-10 col-md-offset-1">
 {% for tag in tags %}
 <a href="/t/{{tag.id}}/"><li class="list-group-item"><span class="badge">{{tag.count}}</span>{{tag.name}}</li></a>
 {% endfor %}

@@ -1,5 +1,5 @@
 #-*- coding:utf-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, Http404
 from django.http import HttpResponse,HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from gallery.models import *
@@ -7,7 +7,6 @@ from gallery.forms import *
 from django.template import RequestContext 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser 
 # Create your views here.
 
 #v0.1
@@ -97,6 +96,8 @@ def login_(request):
 def logout_(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
 @csrf_protect
 def register_(request):
     if request.method=='POST':
@@ -117,6 +118,7 @@ def register_(request):
     return render_to_response('registration/register.html',variables)
 
 #v0.3.5
+@login_required
 def message(request):
     if request.method=='POST':
         content=request.POST.get('content')
@@ -126,11 +128,7 @@ def message(request):
             author=request.user
             )
         except Exception, e:
-            new_message=Message.objects.create(
-            content=content
-            )#如果用户未登录，匿名用户将会报错，于是不用将使用匿名的
-            new_message.save()
-            return HttpResponseRedirect('/msg/')
+            raise Http404
         else:
             new_message.save()
             return HttpResponseRedirect('/msg/')

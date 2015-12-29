@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 """
 Django settings for DaSheng project.
 
@@ -37,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gallery',
+    'gunicorn',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,9 +84,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR,'static').replace('\\','/')
+STATIC_ROOT = os.path.join(BASE_DIR,'static').replace('\\','/')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static").replace('\\','/'),
+    # os.path.join(BASE_DIR, "static").replace('\\','/'),
     #'/var/www/static/',
 )
 TEMPLATE_DIRS = (
