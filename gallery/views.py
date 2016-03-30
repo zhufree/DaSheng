@@ -4,7 +4,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect,csrf_exempt
 from gallery.models import *
 from gallery.forms import *
-from django.template import RequestContext 
+from django.template import RequestContext
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -58,7 +58,7 @@ def show_by_tag(request,id):
     tag=Tag.objects.get(pk=id)
     photos=tag.has_photos.all().filter(is_show=True).order_by('-id')
     return render_to_response('tag.html',RequestContext(request,{'tag':tag,'photos':photos}))
-    
+
 #v0.2,0.4.0
 def show_photo(request,id):
     photo=Photo.objects.get(pk=id)
@@ -135,4 +135,3 @@ def message(request):
     else:
         msgs=Message.objects.all().order_by('-time')
         return render_to_response('message.html',RequestContext(request,{'msgs':msgs}))
-

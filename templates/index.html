@@ -1,47 +1,8 @@
 {% extends "base.html" %}
 {% block title %}首页{% endblock %}
 {% block style %}
-<style> 
-    /* force scrollbar */
-    /*html { overflow-y: scroll; }*/
-    body {
-        font-family: sans-serif;
-    }
-    /* ---- isotope ---- */
-    .grid {
-        padding: 0; 
-       /* min-height: 450px; */
-        margin: 0 auto; 
-        overflow:hidden;
-    }
-    /* clear fix */
-    .grid:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-    /* ---- .grid-item ---- */
-
-    .grid-sizer,
-    .grid-item {
-      width: 30%;
-    }
-
-    .grid-item {
-      float: left; 
-      margin: 20px; 
-      padding: 10px; 
-      border-width: 1px; 
-      -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); 
-    }
-
-    .grid-item img {
-      display: block;
-      max-width: 100%;
-      margin-bottom: 5px; 
-    }
-</style>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block content %}
 <div class="jumbotron">
@@ -50,16 +11,17 @@
   <p>建立这个网站的目的是给喜欢大圣归来同人的亲们一个交流的平台，所有作品尊重作者版权，不以盈利为目的，不允许二次转载，如果作者声明不允许转载将立刻删除。</p>
   <p>v0.4.0更新：增加评论照片功能，需要登录。</p>
 </div>
-<div class="grid-sizer"></div>
+<div id='show-photo'>
 {% for photo in photos %}
-<div class="grid-item">
-  <a href="p/{{photo.id}}/" target="_blank">
-    <img src="{{photo.url}}">
-  </a>
+<div class="box">
+  <div class='pic'>
+    <a href="p/{{photo.id}}/" target="_blank">
+      <img src="{{photo.url}}">
+    </a>
   <p>{{photo.title}}</p>
   <p>{% for tag in photo.tags.all %} <a href='/t/{{tag.id}}/' target="_blank">{{tag.name}}</a> {% endfor %}</p>
   {% for cmt in photo.photo_comments.all %}
-    <div class="list-group">
+    <div class="list-group" id='comment-box'>
     <div class="list-group-item">
       <h4 class="list-group-item-head">{{cmt.content}}</h4>
       <p class="list-group-item-text" align="right">——{{cmt.author}}</p>
@@ -85,32 +47,12 @@
 	</div>
   </form>
   {% endif %}
+  </div>
 </div>
 {% endfor %}
+</div>
 {% endblock %}
 {% block script %}
-<script>
-var url=window.location.href;//获取当前页面链接
-var cuts=url.split('/');//分隔，获取页码
-if(cuts.length<5){
-    	var cur_page_num=1;
-}else{
-    	var cur_page_num=parseInt(cuts[3]);
-}
- $(window).scroll(function () {
-        var scrollTop = $(this).scrollTop();//滚动条滚动的距离
-        var scrollHeight = $(document).height();//整个html页面高度
-        var windowHeight = $(this).height();//可视页面的高度
-        if (scrollTop + windowHeight == scrollHeight) {
-            var nexturl=cuts[0]+'//'+cuts[1]+cuts[2]+'/'+String(cur_page_num+1)+'/';
-            cur_page_num+=1;
-            //alert(cur_page_num);
-            var newnode=document.createElement("div"); 
-            newnode.setAttribute("class", "container-fluid grid"); 
-            newnode.setAttribute("id","new"+String(cur_page_num));
-            document.body.appendChild(newnode);
-            $('#new'+String(cur_page_num)).load(nexturl+' .grid-item');
-        }
-    });
-</script> 
+{% load staticfiles %}
+<script src="{% static 'js/waterfall.js' %}"></script>
 {% endblock %}

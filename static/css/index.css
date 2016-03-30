@@ -1,0 +1,24 @@
+#show-photo {
+    position: relative;
+    margin: 0 auto;
+}
+.box {
+    width: 280px;
+    padding: 15px 15px 15px 15px;
+    float: left;
+}
+
+.pic {
+    padding: 5px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+.pic img {
+    width: 240px;
+    height: auto;
+}
+#comment-box {
+  width: 230px;
+  margin: auto;
+}
