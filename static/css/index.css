@@ -1,3 +1,6 @@
+body {
+  overflow-x: hidden;
+}
 #show-photo {
     position: relative;
     margin: 0 auto;

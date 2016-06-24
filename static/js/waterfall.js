@@ -1,10 +1,10 @@
 var url=window.location.href;//获取当前页面链接
-var cuts=url.split('/');//分隔，获取页码
-if(cuts.length<5){
-	  var cur_page_num=1;
-}else{
-	  var cur_page_num=parseInt(cuts[3]);
-}
+// var cuts=url.split('/');//分隔，获取页码
+// if(cuts.length<5){
+// 	  var cur_page_num=1;
+// }else{
+// 	  var cur_page_num=parseInt(cuts[3]);
+// }
 function waterfall(parent, sclass) {
     var oParent = document.getElementById(parent);
     var aBox = document.getElementsByClassName(sclass);
@@ -45,18 +45,18 @@ function checkScrollside(sClass) {
     var documentHeight = document.documentElement.clientHeight || document.body.clientHeight;
     return (lastImgIn < scrollTop + documentHeight);
 }
-window.onscroll = function() {
-    if(checkScrollside('box')) {
-        var nexturl=cuts[0]+'//'+cuts[1]+cuts[2]+'/'+String(cur_page_num+1)+'/';
-        console.log(nexturl);
-        cur_page_num+=1;
-        var newnode=document.createElement("div");
-        newnode.setAttribute("id","new"+String(cur_page_num));
-        document.getElementById('show-photo').appendChild(newnode);
-        $('#new'+String(cur_page_num)).load(nexturl+' .box');
-        waterfall('show-photo', 'box');
-    }
-};
+// window.onscroll = function() {
+//     if(checkScrollside('box')) {
+//         var nexturl=cuts[0]+'//'+cuts[1]+cuts[2]+'/'+String(cur_page_num+1)+'/';
+//         console.log(nexturl);
+//         cur_page_num+=1;
+//         var newnode=document.createElement("div");
+//         newnode.setAttribute("id","new"+String(cur_page_num));
+//         document.getElementById('show-photo').appendChild(newnode);
+//         $('#new'+String(cur_page_num)).load(nexturl+' .box');
+//         waterfall('show-photo', 'box');
+//     }
+// };
 
 window.onresize = function() {
     waterfall('show-photo', 'box');

@@ -24,7 +24,7 @@ def index(request,page=0):
             photo_to_hide.save()
         return HttpResponseRedirect('/')
     else:
-        photos=list(Photo.objects.filter(is_show=True).order_by('-id'))[int(page)*5:(int(page)+1)*5]
+        photos = Photo.objects.filter(is_show=True).order_by('-id')
         return render_to_response('index.html',RequestContext(request,{'photos':photos}))
 
 #v0.2
